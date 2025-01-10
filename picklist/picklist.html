@@ -1,0 +1,41 @@
+
+<template>
+    <template if:true={accounts}>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Industry</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Website</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={accounts} for:item="account">
+                    <tr key={account.Id}>
+                        <td>{account.Name}</td>
+                        <td>{account.Industry}</td>
+                        <td>{account.Phone}</td>
+                  
+                        <td><a href={account.Website} target="_blank">{account.Website}</a></td>
+                        <td>
+                            <lightning-combobox
+                            name="progress"
+                            label="Active or Inactive"
+                            value={account.Active__c}
+                            options={picklistOptions}
+                            data-id={account.Id}
+                            onchange={handleChange}>
+                        </lightning-combobox>
+                        </td>
+                        
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+
+    <template if:true={error}>
+        <p>{error}</p>
+    </template>
+</template>
