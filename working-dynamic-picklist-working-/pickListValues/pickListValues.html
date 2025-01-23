@@ -1,0 +1,41 @@
+<template>
+    <template if:true={accounts}>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Industry</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Website</th>
+                    <th scope="col">Picklist</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={accounts} for:item="account">
+                    <tr key={account.Id}>
+                        <td>{account.Name}</td>
+                        <td>{account.Industry}</td>
+                        <td>{account.Phone}</td>
+                        <td>
+                            <a href={account.Website} target="_blank">{account.Website}</a>
+                        </td>
+                        <td>
+                            <template if:true={picklistValues}>
+                                <lightning-combobox name="picklist" placeholder="Choose an option"
+                                    options={picklistValues}></lightning-combobox>
+                            </template>
+                            <template if:true={error}>
+                                <div class="slds-text-color_error" role="alert">
+                                    {error}
+                                </div>
+                            </template>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+    <template if:false={accounts}>
+        <p>No accounts found.</p>
+    </template>
+</template>
